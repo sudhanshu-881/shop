@@ -1,6 +1,6 @@
 import type { Product, Customer, Transaction, Supplier, SupplierTransaction } from '../schema';
 
-const API_BASE_URL = 'http://localhost:5000/api'; // Your backend server URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const handleResponse = async (response: Response) => {
   if (!response.ok) {
