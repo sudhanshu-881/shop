@@ -1,0 +1,7 @@
+{
+  "name": "InvenShop - Inventory Management",
+  "description": "A digital inventory management platform for local retailers, providing an intuitive dashboard to track products, manage stock levels, and gain business insights through AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

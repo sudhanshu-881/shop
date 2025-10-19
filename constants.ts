@@ -1,0 +1,142 @@
+import type { Product, Supplier, Customer, Transaction, SupplierTransaction } from './types';
+
+export const MOCK_PRODUCTS: Product[] = [
+  {
+    id: '1',
+    name: 'Parle-G Biscuits',
+    category: 'Biscuits',
+    stock: 15,
+    lowStockThreshold: 20,
+    price: 10,
+    cost: 7,
+    expiryDate: new Date(new Date().setDate(new Date().getDate() + 5)).toISOString().split('T')[0],
+    supplierId: 's-1',
+    imageUrl: 'https://picsum.photos/seed/parleg/200',
+    variants: ['50g', '100g'],
+    barcode: '8901719125211',
+  },
+  {
+    id: '2',
+    name: 'Amul Gold Milk',
+    category: 'Dairy',
+    stock: 8,
+    lowStockThreshold: 10,
+    price: 27,
+    cost: 22,
+    expiryDate: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0],
+    supplierId: 's-2',
+    imageUrl: 'https://picsum.photos/seed/amul/200',
+    variants: ['500ml', '1L'],
+    barcode: '8901262020054',
+  },
+  {
+    id: '3',
+    name: 'Tata Salt',
+    category: 'Spices',
+    stock: 50,
+    lowStockThreshold: 15,
+    price: 20,
+    cost: 15,
+    expiryDate: '2025-12-31',
+    supplierId: 's-3',
+    imageUrl: 'https://picsum.photos/seed/tatasalt/200',
+    barcode: '8904014101103',
+  },
+  {
+    id: '4',
+    name: 'Fortune Sunlite Oil',
+    category: 'Oils',
+    stock: 25,
+    lowStockThreshold: 10,
+    price: 150,
+    cost: 130,
+    expiryDate: '2025-08-15',
+    supplierId: 's-4',
+    imageUrl: 'https://picsum.photos/seed/fortuneoil/200',
+    variants: ['1L Pouch', '5L Jar'],
+  },
+  {
+    id: '5',
+    name: 'Maggi Noodles',
+    category: 'Snacks',
+    stock: 30,
+    lowStockThreshold: 25,
+    price: 12,
+    cost: 9,
+    expiryDate: new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().split('T')[0],
+    supplierId: 's-5',
+    imageUrl: 'https://picsum.photos/seed/maggi/200',
+    variants: ['Single Pack', 'Pack of 4'],
+    barcode: '8901058862358',
+  },
+  {
+    id: '6',
+    name: 'Surf Excel Detergent',
+    category: 'Cleaning',
+    stock: 40,
+    lowStockThreshold: 10,
+    price: 110,
+    cost: 85,
+    expiryDate: '2026-01-01',
+    supplierId: 's-6',
+    imageUrl: 'https://picsum.photos/seed/surfexcel/200'
+  },
+    {
+    id: '7',
+    name: 'Colgate MaxFresh',
+    category: 'Personal Care',
+    stock: 22,
+    lowStockThreshold: 15,
+    price: 95,
+    cost: 70,
+    expiryDate: '2025-06-01',
+    supplierId: 's-7',
+    imageUrl: 'https://picsum.photos/seed/colgate/200',
+    variants: ['100g', '200g', 'Family Pack'],
+    barcode: '8901314220401',
+  },
+   {
+    id: '8',
+    name: 'Lays Classic Chips',
+    category: 'Snacks',
+    stock: 5,
+    lowStockThreshold: 10,
+    price: 20,
+    cost: 14,
+    expiryDate: new Date(new Date().setDate(new Date().getDate() + 15)).toISOString().split('T')[0],
+    supplierId: 's-8',
+    imageUrl: 'https://picsum.photos/seed/lays/200',
+    barcode: '89014915',
+  },
+];
+
+export const MOCK_SUPPLIERS: Supplier[] = [
+  { id: 's-1', name: 'Parle Distributors', contactPerson: 'Ramesh Patel', phone: '9876543210', address: 'Mumbai', balance: 15000 },
+  { id: 's-2', name: 'Amul Dairy', contactPerson: 'Sita Sharma', phone: '9876543211', address: 'Anand', balance: 22000 },
+  { id: 's-3', name: 'Tata Chemicals', contactPerson: 'Vijay Kumar', phone: '9876543212', address: 'Delhi', balance: 5000 },
+  { id: 's-4', name: 'Adani Wilmar', contactPerson: 'Anjali Mehta', phone: '9876543213', address: 'Ahmedabad', balance: 0 },
+  { id: 's-5', name: 'Nestle India', contactPerson: 'Arun Singh', phone: '9876543214', address: 'Gurgaon', balance: 8500 },
+  { id: 's-6', name: 'Hindustan Unilever', contactPerson: 'Priya Reddy', phone: '9876543215', address: 'Bangalore', balance: 12000 },
+  { id: 's-7', name: 'Colgate-Palmolive', contactPerson: 'Rajesh Gupta', phone: '9876543216', address: 'Chennai', balance: 0 },
+  { id: 's-8', name: 'PepsiCo India', contactPerson: 'Sunita Rao', phone: '9876543217', address: 'Kolkata', balance: 3500 },
+];
+
+export const MOCK_CUSTOMERS: Customer[] = [
+  { id: 'c-1', name: 'Anita Desai', phone: '9123456780', balance: 150.50 },
+  { id: 'c-2', name: 'Vikram Singh', phone: '9123456781', balance: 0 },
+  { id: 'c-3', name: 'Pooja Sharma', phone: '9123456782', balance: 320.00 },
+  { id: 'c-4', name: 'Rohan Joshi', phone: '9123456783', balance: 75.00 },
+];
+
+export const MOCK_TRANSACTIONS: Transaction[] = [
+  { id: 't-1', customerId: 'c-1', type: 'credit', amount: 200.50, date: new Date().toISOString() },
+  { id: 't-2', customerId: 'c-1', type: 'payment', amount: 50.00, date: new Date(Date.now() - 86400000).toISOString() }, // yesterday
+  { id: 't-3', customerId: 'c-3', type: 'credit', amount: 320.00, date: new Date(Date.now() - 172800000).toISOString() }, // 2 days ago
+  { id: 't-4', customerId: 'c-4', type: 'credit', amount: 75.00, date: new Date().toISOString() },
+];
+
+export const MOCK_SUPPLIER_TRANSACTIONS: SupplierTransaction[] = [
+    { id: 'st-1', supplierId: 's-1', type: 'purchase', amount: 20000, date: new Date().toISOString() },
+    { id: 'st-2', supplierId: 's-1', type: 'payment', amount: 5000, date: new Date(Date.now() - 86400000 * 2).toISOString() },
+    { id: 'st-3', supplierId: 's-2', type: 'purchase', amount: 22000, date: new Date(Date.now() - 86400000).toISOString() },
+];
