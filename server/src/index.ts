@@ -5,7 +5,6 @@ import morgan from 'morgan';
 import compression from 'compression';
 import { createClient } from '@supabase/supabase-js';
 import { config } from './config';
-import createRoutes from './routes';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import { generalLimiter } from './middleware/rateLimiter';
 import logger from './utils/logger';
@@ -65,8 +64,35 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes
-app.use('/api', createRoutes(supabase));
+// Simple API routes for now
+app.get('/api/data', async (req, res) => {
+  try {
+    const [productsResult, customersResult, suppliersResult, transactionsResult, supplierTransactionsResult] = await Promise.all([
+      supabase.from('products').select('*').order('created_at', { ascending: false }),
+      supabase.from('customers').select('*').order('name', { ascending: true }),
+      supabase.from('suppliers').select('*').order('name', { ascending: true }),
+      supabase.from('transactions').select('*').order('created_at', { ascending: false }),
+      supabase.from('supplier_transactions').select('*').order('created_at', { ascending: false })
+    ]);
+
+    res.json({
+      success: true,
+      data: {
+        products: productsResult.data || [],
+        customers: customersResult.data || [],
+        suppliers: suppliersResult.data || [],
+        transactions: transactionsResult.data || [],
+        supplierTransactions: supplierTransactionsResult.data || []
+      }
+    });
+  } catch (error) {
+    logger.error('Error fetching data:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch data'
+    });
+  }
+});
 
 // 404 handler
 app.use(notFoundHandler);

@@ -22,11 +22,18 @@ const runMigrations = async () => {
 
       logger.info(`Running migration: ${file}`);
 
-      const { error } = await supabase.rpc('exec_sql', { sql });
+      // Split SQL into individual statements
+      const statements = sql.split(';').filter(stmt => stmt.trim().length > 0);
 
-      if (error) {
-        logger.error(`Migration ${file} failed:`, error);
-        throw error;
+      for (const statement of statements) {
+        if (statement.trim()) {
+          const { error } = await supabase.rpc('exec_sql', { sql: statement.trim() });
+          
+          if (error) {
+            logger.error(`Migration ${file} failed at statement:`, statement);
+            throw error;
+          }
+        }
       }
 
       logger.info(`Migration ${file} completed successfully`);
